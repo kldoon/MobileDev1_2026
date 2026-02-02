@@ -48,13 +48,51 @@
         console.log(students)
         // student1=student2;
 
-        y = y * z + a * x;
+        y = y / z + a / x;
         console.log(y);
 
         function changeColor() {
             console.log("Hi");
             document.getElementById("title").style.color = "red";
         }
+
+        if (y >= 50) {
+            console.log("Y is large number");
+        } else {
+            console.log("Y is small number");
+        }
+
+        for (let i = 0; i < 20; i++) {
+            console.log(i);
+        }
+
+        students.forEach(
+            function (item) {
+                if (typeof (item) === "string") {
+                    console.log(item)
+                } else {
+                    console.log(item.name)
+                }
+            })
+
+        //==============
+        function calc(x1, x2) {
+            const res = x1 + x2;
+            return res;
+        }
+
+        //==== ES6 syntax
+        const calc2 = (x1) => {
+            const res = x1 * x1;
+            return res;
+        }
+
+         const calc3 = x1 => {
+            const res = x1 * x1;
+            return res;
+        }
+
+        const calc4 = x1 => (x1*x1);
     </script>
 </body>
 
