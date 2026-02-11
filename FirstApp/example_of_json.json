@@ -1,0 +1,12 @@
+{
+  "name": "Ahmad Saeed",
+  "city": "Hebron",
+  "university": "Hebron University",
+  "dateOfBirth": {
+    "year":2003,
+    "month":5,
+    "day":30
+  },
+  "gpa": 95,
+  "courses": ["CS", "Math","CG","IT"]
+}
