@@ -1,15 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
-const StudentCard = (props) => {
-  return (
-    <View>
-      <Text>---------------------------------------------------------------</Text>
-      <Text>{props.studentId}  {props.studentName}            {props.mark+2}</Text>
-      <Text>---------------------------------------------------------------</Text>
-    </View>
-  )
-}
+import StudentCard from './components/StudentCard';
 
 export default function App() {
   return (
