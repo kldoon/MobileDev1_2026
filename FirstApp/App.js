@@ -1,13 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-// const App=()=>
-const Welcome = () =>{
-  return(
+const StudentCard = (props) => {
+  return (
     <View>
-      <Text>==================</Text>
-      <Text>Welcome to the APP</Text>
-      <Text>==================</Text>
+      <Text>---------------------------------------------------------------</Text>
+      <Text>{props.studentId}  {props.studentName}            {props.mark+2}</Text>
+      <Text>---------------------------------------------------------------</Text>
     </View>
   )
 }
@@ -15,9 +14,10 @@ const Welcome = () =>{
 export default function App() {
   return (
     <View style={styles.container}>
-      <Welcome />
+      <StudentCard studentId={1233} studentName="Ahmad Saeed" mark={90} />
+      <StudentCard studentId={1324} studentName="Sarah Jameel" mark="87" />
+      <StudentCard studentId={1342} studentName="Waleed Nabil" mark={78} />
       <Text>Welcome to my First App! Hello</Text>
-      <Welcome />
       <StatusBar style="auto" />
     </View>
   );
