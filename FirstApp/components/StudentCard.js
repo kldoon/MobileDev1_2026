@@ -1,12 +1,32 @@
-import { View, Text, StyleSheet } from 'react-native';
-import Divider from './Divider';
+import { useState } from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 const StudentCard = (props) => {
+  // let att = 0;
+  const [att, setAtt] = useState(0);   // useState hook
+
+  const addAtt = () => {
+    console.log("Add Attendnace:");
+    //att=att+1;
+    setAtt(att + 1);
+  }
+
+  function removeAtt() {
+    if (att - 1 >= 0) {
+      //att-=1;
+      setAtt(att - 1);
+    }
+  }
+
   return (
     <View style={styles.card}>
       <Text style={styles.info}>{props.studentId}  {props.studentName}            {props.mark + 2}</Text>
       <Text style={styles.info}>University: Hebron</Text>
-      <Divider />
+      <Text>Attendance Days: {att}</Text>
+      <View style={styles.attActions}>
+        <Button title=" + " onPress={addAtt} />
+        <Button title="  -  " onPress={removeAtt} />
+      </View>
     </View>
   )
 }
@@ -28,5 +48,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold"
   },
-
+  attActions: {
+    flexDirection: "row",
+    columnGap: 5
+  },
+  attBtn: {
+    paddingHorizontal: 10,
+  }
 });
