@@ -10,7 +10,7 @@ const StudentCard = (props) => {
     //att=att+1;
     setAtt(att + 1);
   }
-
+  
   function removeAtt() {
     if (att - 1 >= 0) {
       //att-=1;
@@ -18,14 +18,20 @@ const StudentCard = (props) => {
     }
   }
 
+  const zeroAtt = () => {
+    //att=0;
+    setAtt(0);
+  }
+
   return (
     <View style={styles.card}>
-      <Text style={styles.info}>{props.studentId}  {props.studentName}            {props.mark + 2}</Text>
+      <Text style={styles.info}>{props.studentId}  {props.studentName}            {props.mark}</Text>
       <Text style={styles.info}>University: Hebron</Text>
       <Text>Attendance Days: {att}</Text>
       <View style={styles.attActions}>
         <Button title=" + " onPress={addAtt} />
         <Button title="  -  " onPress={removeAtt} />
+        <Button title="  0  " onPress={zeroAtt} />
       </View>
     </View>
   )
