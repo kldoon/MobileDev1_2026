@@ -8,7 +8,7 @@ export default function App() {
   //New student Info
   const [stdName, setStdName] = useState();
   const [stdId, setStdId] = useState();
-  const STUDENT_DATA = [
+  const [studentData, setStudentData] = useState([
     {
       id: 1233,
       name: "Ahmad Saeed",
@@ -18,26 +18,10 @@ export default function App() {
       id: 1324,
       name: "Sarah Jameel",
       mark: 87
-    },
-    {
-      id: 1342,
-      name: "Waleed Nabil",
-      mark: 78
-    },
-    // {
-    //   id: 1343,
-    //   name: "Hiba Nabil",
-    //   mark: 90
-    // },
-  ]
-
-  // const handleChangeName = (value) => {
-  //   //console.log(value);
-  //   setStdName(value);
-  // }
+    }]
+  );
 
   const handleIdChange = (value) => {
-    // console.log(typeof(parseInt(value)));
     setStdId(parseInt(value));
   }
 
@@ -46,20 +30,41 @@ export default function App() {
     setStdId("");
   }
 
+  const handleSubmit = () => {
+    // We are create a NEW array, then copying all items from the old array into the new array
+    // const newStudentData = [...studentData, {
+    //   id: stdId,
+    //   name: stdName,
+    //   mark: 0
+    // }];
+
+    // setStudentData(newStudentData);
+
+    // Shorter verson
+    setStudentData([...studentData, { id: stdId, name: stdName, mark: 0 }]);
+
+
+    /// This is wrong because we are creating a new pointer to the old array, and changing the old array
+    // newStudentData = studentData;
+    // newStudentData.push();
+
+    clear();
+  }
+
   return (
     <View style={styles.container}>
       {/* Controlled components, when you send the value to the inputs */}
       <TextInput style={styles.input} inputMode="numeric" onChangeText={handleIdChange} placeholder="Student Id" value={stdId} />
       <TextInput style={styles.input} onChangeText={(value) => setStdName(value)} placeholder="Student Name" value={stdName} />
       <Button title="Clear" onPress={clear} />
-      <Button title="Submit" onPress={() => { }} />
+      <Button title="Submit" onPress={handleSubmit} />
       <Divider />
       <Text>New Student ID: {stdId}</Text>
       <Text>New Student Name: {stdName}</Text>
       <Divider />
       {
         // List rendering in react
-        STUDENT_DATA.map((student) => {
+        studentData.map((student) => {
           return <StudentCard key={student.id} studentId={student.id} studentName={student.name} mark={student.mark} />
         })
       }
