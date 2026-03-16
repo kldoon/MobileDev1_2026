@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import StudentCard from './components/StudentCard';
 import Divider from './components/Divider';
 import { useState } from 'react';
@@ -40,9 +40,8 @@ export default function App() {
 
     // setStudentData(newStudentData);
 
-    // Shorter verson
+    // Shorter version
     setStudentData([...studentData, { id: stdId, name: stdName, mark: 0 }]);
-
 
     /// This is wrong because we are creating a new pointer to the old array, and changing the old array
     // newStudentData = studentData;
@@ -53,23 +52,27 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Student Registration App</Text>
       {/* Controlled components, when you send the value to the inputs */}
       <TextInput style={styles.input} inputMode="numeric" onChangeText={handleIdChange} placeholder="Student Id" value={stdId} />
       <TextInput style={styles.input} onChangeText={(value) => setStdName(value)} placeholder="Student Name" value={stdName} />
-      <Button title="Clear" onPress={clear} />
-      <Button title="Submit" onPress={handleSubmit} />
+      <View style={{ flexDirection: 'row', columnGap: 15 }}>
+        <Button title="Clear" onPress={clear} color="#7d7d7d" />
+        <Button title="Submit" onPress={handleSubmit} />
+      </View>
       <Divider />
-      <Text>New Student ID: {stdId}</Text>
-      <Text>New Student Name: {stdName}</Text>
+      {/* To make the scrolling horizontal use the following */}
+      {/* <ScrollView style={styles.stdList} horizontal={true}> */}
+      <ScrollView style={styles.stdList}>
+        {
+          // List rendering in react
+          studentData.map((student) => {
+            return <StudentCard key={student.id} studentId={student.id} studentName={student.name} mark={student.mark} />
+          })
+        }
+      </ScrollView>
       <Divider />
-      {
-        // List rendering in react
-        studentData.map((student) => {
-          return <StudentCard key={student.id} studentId={student.id} studentName={student.name} mark={student.mark} />
-        })
-      }
-      <Divider />
-      <Text>Welcome to my First App! Hello</Text>
+      <Text>Full List of students</Text>
       <Divider />
       <StatusBar style="auto" />
     </View>
@@ -82,12 +85,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 50,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#6633cc',
+    marginBottom: 20
+  },
+  stdList: {
+    width: '100%',
+    paddingHorizontal: 30,
+    marginVertical: 20,
+    backgroundColor: '#fff4e7'
   },
   input: {
     borderColor: "#4455f2",
     borderWidth: 1,
     borderRadius: 5,
-    paddingHorizontal: 2,
+    paddingHorizontal: 10,
     width: "50%",
     marginBottom: 10
   }
