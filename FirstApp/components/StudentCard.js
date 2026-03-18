@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Image } from 'react-native';
 
 const StudentCard = (props) => {
   // let att = 0;
@@ -10,7 +10,7 @@ const StudentCard = (props) => {
     //att=att+1;
     setAtt(att + 1);
   }
-  
+
   function removeAtt() {
     if (att - 1 >= 0) {
       //att-=1;
@@ -25,13 +25,23 @@ const StudentCard = (props) => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.info}>{props.studentId}  {props.studentName}            {props.mark}</Text>
-      <Text style={styles.info}>University: Hebron</Text>
-      <Text>Attendance Days: {att}</Text>
-      <View style={styles.attActions}>
-        <Button title=" + " onPress={addAtt} />
-        <Button title="  -  " onPress={removeAtt} />
-        <Button title="  0  " onPress={zeroAtt} />
+      <View style={styles.left}>
+        <Text style={styles.info}>{props.studentId}  {props.studentName}            {props.mark}</Text>
+        <Text style={styles.info}>University: Hebron</Text>
+        <Text>Attendance Days: {att}</Text>
+        <View style={styles.attActions}>
+          <Button title=" + " onPress={addAtt} />
+          <Button title="  -  " onPress={removeAtt} />
+          <Button title="  0  " onPress={zeroAtt} />
+        </View>
+      </View>
+      <View style={styles.right}>
+        <Image
+          source={{ uri: props.image }}
+          style={{ width: '100%', height: 110 }}
+          resizeMode="cover"
+          blurRadius={0}
+        />
       </View>
     </View>
   )
@@ -47,7 +57,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 15,
-    marginBottom: 10
+    marginBottom: 10,
+    flexDirection: 'row'
   },
   info: {
     color: "#3224f0",
@@ -60,5 +71,14 @@ const styles = StyleSheet.create({
   },
   attBtn: {
     paddingHorizontal: 10,
+  },
+  left: {
+    rowGap: 3
+  },
+  right: {
+    borderColor: '#cbcbcb',
+    borderWidth: 1,
+    flexGrow: 1,
+    marginLeft: 10
   }
 });
