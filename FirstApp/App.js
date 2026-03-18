@@ -59,11 +59,12 @@ export default function App() {
       <ImageBackground
         source={{ uri: 'https://media.istockphoto.com/id/1064172872/vector/line-circle-abstract-background-seamless-pattern-gold-luxury-color-geometric-vector.jpg?s=612x612&w=0&k=20&c=IUfmx3Q48sDHNXSUnI-syPX1w8rol2p1--wywGddUis=' }}
         resizeMode="repeat"
-        style={{ flex: 1, justifyContent: 'center', alignItems:'stretch' }}
+        style={{ justifyContent: 'space-evenly', alignItems: 'center', width: '100%', paddingVertical: 20 }}
       >
         <Image
           source={require('./assets/std-reg.jpg')}
-          style={{ width: 80, height: 80 }}
+          style={{ width: 90, height: 90 }}
+          borderRadius={50}
         />
         <Text style={styles.title}>Student Registration App</Text>
         {/* Controlled components, when you send the value to the inputs */}
@@ -120,6 +121,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     width: "50%",
-    marginBottom: 10
+    marginBottom: 10,
+    backgroundColor: '#fff'
   }
 });
