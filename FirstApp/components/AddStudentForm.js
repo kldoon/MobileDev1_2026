@@ -39,7 +39,8 @@ export default AddStudentForm;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    alignItems:"center",
+    alignItems: "center",
+    paddingTop: 10
   },
   input: {
     borderColor: "#4455f2",

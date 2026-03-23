@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import Divider from './components/Divider';
 import AddStudentForm from './components/AddStudentForm';
 import StudentsList from './components/StudentsList';
@@ -21,6 +21,7 @@ export default function App() {
       image: 'https://static.vecteezy.com/system/resources/previews/055/056/329/non_2x/3d-icon-avatar-cartoon-woman-holding-a-mockup-phone-with-blank-white-screen-png.png'
     }]
   );
+  const [showForm, setShowForm] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -35,16 +36,24 @@ export default function App() {
           borderRadius={50}
         />
         <Text style={styles.title}>Student Registration App</Text>
-        <AddStudentForm
-          studentData={studentData}
-          setStudentData={setStudentData}
+        <Button
+          title="Add Student ➕"
+          onPress={() => setShowForm(!showForm)}
         />
+        {
+          showForm === true
+            ? <AddStudentForm
+              studentData={studentData}
+              setStudentData={setStudentData}
+            />
+            : null
+        }
       </ImageBackground>
       <Divider />
       <StudentsList
         studentsList={studentData}
       />
-      <StatusBar style="auto"/>
+      <StatusBar style="auto" />
     </View>
   );
 }
