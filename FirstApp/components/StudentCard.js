@@ -2,28 +2,34 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, Button, Image } from 'react-native';
 
 const StudentCard = (props) => {
-  const [att, setAtt] = useState(0);
+  const [abs, setAbs] = useState(0);
 
   const addAtt = () => {
-    setAtt(att + 1);
+    setAbs(abs + 1);
   }
 
   function removeAtt() {
-    if (att - 1 >= 0) {
-      setAtt(att - 1);
+    if (abs - 1 >= 0) {
+      setAbs(abs - 1);
     }
   }
 
   const zeroAtt = () => {
-    setAtt(0);
+    setAbs(0);
   }
 
+  const is26 = props.studentId.toString().startsWith('26');
+  const stdIdStyle = {
+    fontStyle: is26 ? 'italic' : 'normal',
+    color: is26 ? '#ed7868' : '#3224f0'
+  };
+
   return (
-    <View style={styles.card}>
+    <View style={{ ...styles.card, borderColor: (is26 ? '#ed7868' : styles.card.borderColor) }}>
       <View style={styles.left}>
-        <Text style={styles.info}>{props.studentId}  {props.studentName}            {props.mark}</Text>
+        <Text style={styles.info}><Text style={stdIdStyle}>{props.studentId}</Text>  {props.studentName}            {props.mark}</Text>
         <Text style={styles.info}>University: Hebron</Text>
-        <Text>Attendance Days: {att}</Text>
+        <Text style={{ color: abs < 5 ? '#073507' : (abs < 9 ? '#ffa341' : '#ff0000') }}>Absents Days: {abs}</Text>
         <View style={styles.attActions}>
           <Button title=" + " onPress={addAtt} />
           <Button title="  -  " onPress={removeAtt} />
@@ -59,7 +65,7 @@ const styles = StyleSheet.create({
     color: "#3224f0",
     fontSize: 16,
     fontWeight: "bold",
-    maxWidth:170
+    maxWidth: 170
   },
   attActions: {
     flexDirection: "row",
