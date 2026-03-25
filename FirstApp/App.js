@@ -37,11 +37,11 @@ export default function App() {
         />
         <Text style={styles.title}>Student Registration App</Text>
         <Button
-          title="Add Student ➕"
+          title={`${showForm ? 'Close ' : ''}Add Student ${showForm ? '❌' : '➕'}`}
           onPress={() => setShowForm(!showForm)}
         />
         {
-          showForm === true
+          showForm
             ? <AddStudentForm
               studentData={studentData}
               setStudentData={setStudentData}
@@ -49,7 +49,9 @@ export default function App() {
             : null
         }
       </ImageBackground>
-      <Divider />
+      {
+        showForm && <Divider />
+      }
       <StudentsList
         studentsList={studentData}
       />

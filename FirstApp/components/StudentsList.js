@@ -6,13 +6,14 @@ const StudentsList = (props) => {
   return (
     <ScrollView style={styles.stdList}>
       {
-        props.studentsList.map((student) => <StudentCard
-          key={student.id}
-          studentId={student.id}
-          studentName={student.name}
-          mark={student.mark}
-          image={student.image}
-        />
+        props.studentsList.map((student) => (
+          <StudentCard
+            key={student.id}
+            studentId={student.id}
+            studentName={student.name}
+            mark={student.mark}
+            image={student.image}
+          />)
         )
       }
     </ScrollView>

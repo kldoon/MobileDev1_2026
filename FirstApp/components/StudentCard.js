@@ -2,24 +2,19 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, Button, Image } from 'react-native';
 
 const StudentCard = (props) => {
-  // let att = 0;
-  const [att, setAtt] = useState(0);   // useState hook
+  const [att, setAtt] = useState(0);
 
   const addAtt = () => {
-    console.log("Add Attendnace:");
-    //att=att+1;
     setAtt(att + 1);
   }
 
   function removeAtt() {
     if (att - 1 >= 0) {
-      //att-=1;
       setAtt(att - 1);
     }
   }
 
   const zeroAtt = () => {
-    //att=0;
     setAtt(0);
   }
 
@@ -37,8 +32,8 @@ const StudentCard = (props) => {
       </View>
       <View style={styles.right}>
         <Image
-          source={{ uri: props.image }}
-          style={{ width: '100%', height: 110 }}
+          source={{ uri: props.image || 'https://icons.veryicon.com/png/o/miscellaneous/standard/avatar-15.png' }}
+          style={{ width: '100%', minWidth: 110, height: 110 }}
           resizeMode="cover"
           blurRadius={0}
         />
@@ -63,7 +58,8 @@ const styles = StyleSheet.create({
   info: {
     color: "#3224f0",
     fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    maxWidth:170
   },
   attActions: {
     flexDirection: "row",
@@ -73,7 +69,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   left: {
-    rowGap: 3
+    rowGap: 3,
+    flexGrow: 1
   },
   right: {
     borderColor: '#cbcbcb',
