@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, Pressable } from 'react-native';
 
 const StudentCard = (props) => {
   const [abs, setAbs] = useState(0);
@@ -26,6 +26,9 @@ const StudentCard = (props) => {
 
   return (
     <View style={{ ...styles.card, borderColor: (is26 ? '#ed7868' : styles.card.borderColor) }}>
+      <Pressable style={styles.deleteBtn} onPress={() => { console.log("X is pressed") }}>
+        <Text style={{fontSize: 12}}>❌</Text>
+      </Pressable>
       <View style={styles.left}>
         <Text style={styles.info}><Text style={stdIdStyle}>{props.studentId}</Text>  {props.studentName}            {props.mark}</Text>
         <Text style={styles.info}>University: Hebron</Text>
@@ -83,5 +86,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexGrow: 1,
     marginLeft: 10
+  },
+  deleteBtn: {
+    position: 'absolute',
+    left: -10,
+    top: -10,
+    backgroundColor: '#fee795',
+    padding: 5,
+    borderRadius:'50%'
   }
 });

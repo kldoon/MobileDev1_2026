@@ -21,7 +21,12 @@ export default function App() {
       image: 'https://static.vecteezy.com/system/resources/previews/055/056/329/non_2x/3d-icon-avatar-cartoon-woman-holding-a-mockup-phone-with-blank-white-screen-png.png'
     }]
   );
+
   const [showForm, setShowForm] = useState(false);
+
+  const deleteStudent = (studentId) => {
+    
+  }
 
   return (
     <View style={styles.container}>
