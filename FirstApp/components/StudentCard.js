@@ -26,8 +26,8 @@ const StudentCard = (props) => {
 
   return (
     <View style={{ ...styles.card, borderColor: (is26 ? '#ed7868' : styles.card.borderColor) }}>
-      <Pressable style={styles.deleteBtn} onPress={() => { console.log("X is pressed") }}>
-        <Text style={{fontSize: 12}}>❌</Text>
+      <Pressable style={styles.deleteBtn} onPress={() => { props.onDelete(props.studentId) }}>
+        <Text style={{ fontSize: 12 }}>❌</Text>
       </Pressable>
       <View style={styles.left}>
         <Text style={styles.info}><Text style={stdIdStyle}>{props.studentId}</Text>  {props.studentName}            {props.mark}</Text>
@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
     top: -10,
     backgroundColor: '#fee795',
     padding: 5,
-    borderRadius:'50%'
+    borderRadius: '50%'
   }
 });

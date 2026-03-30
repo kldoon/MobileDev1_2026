@@ -25,7 +25,19 @@ export default function App() {
   const [showForm, setShowForm] = useState(false);
 
   const deleteStudent = (studentId) => {
+    console.log("Delete student called!!", studentId);
+    const newStudentList = studentData.filter((item) => item.id !== studentId);
+    setStudentData(newStudentList);
     
+    // const newStudentList = [];
+    // for (let i = 0; i < studentData.length; i++) {
+    //   if (studentData.id === studentId) {
+    //     //delete this\
+    //     continue;
+    //   } else {
+    //     newStudentList.push(studentData[i]);
+    //   }
+    // }
   }
 
   return (
@@ -59,6 +71,7 @@ export default function App() {
       }
       <StudentsList
         studentsList={studentData}
+        onDelete={deleteStudent}
       />
       <StatusBar style="auto" />
     </View>

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import StudentCard from "./StudentCard";
 
 const StudentsList = (props) => {
@@ -6,15 +6,18 @@ const StudentsList = (props) => {
   return (
     <ScrollView style={styles.stdList}>
       {
-        props.studentsList.map((student) => (
+        props.studentsList.length > 0 
+        ? props.studentsList.map((student) => (
           <StudentCard
             key={student.id}
             studentId={student.id}
             studentName={student.name}
             mark={student.mark}
             image={student.image}
+            onDelete={props.onDelete}
           />)
         )
+        :<Text>No Students Added! You can add students using the form above</Text>
       }
     </ScrollView>
   )
