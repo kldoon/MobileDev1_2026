@@ -3,8 +3,16 @@ import { Button, Image, ImageBackground, StyleSheet, Text, View } from 'react-na
 import Divider from './components/Divider';
 import AddStudentForm from './components/AddStudentForm';
 import StudentsList from './components/StudentsList';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from './screens/Home.Screen';
+import AboutScreen from './screens/AboutApp.Screen';
+import AddStudentScreen from './screens/AddStudent.Screen';
+import StudentsListScreen from './screens/StudentsList.Screen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const [studentData, setStudentData] = useState([
@@ -28,7 +36,7 @@ export default function App() {
     console.log("Delete student called!!", studentId);
     const newStudentList = studentData.filter((item) => item.id !== studentId);
     setStudentData(newStudentList);
-    
+
     // const newStudentList = [];
     // for (let i = 0; i < studentData.length; i++) {
     //   if (studentData.id === studentId) {
@@ -41,40 +49,15 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={{ uri: 'https://media.istockphoto.com/id/1064172872/vector/line-circle-abstract-background-seamless-pattern-gold-luxury-color-geometric-vector.jpg?s=612x612&w=0&k=20&c=IUfmx3Q48sDHNXSUnI-syPX1w8rol2p1--wywGddUis=' }}
-        resizeMode="repeat"
-        style={{ justifyContent: 'space-evenly', alignItems: 'center', width: '100%', paddingVertical: 20 }}
-      >
-        <Image
-          source={require('./assets/std-reg.jpg')}
-          style={{ width: 90, height: 90 }}
-          borderRadius={50}
-        />
-        <Text style={styles.title}>Student Registration App</Text>
-        <Button
-          title={`${showForm ? 'Close ' : ''}Add Student ${showForm ? '❌' : '➕'}`}
-          onPress={() => setShowForm(!showForm)}
-        />
-        {
-          showForm
-            ? <AddStudentForm
-              studentData={studentData}
-              setStudentData={setStudentData}
-            />
-            : null
-        }
-      </ImageBackground>
-      {
-        showForm && <Divider />
-      }
-      <StudentsList
-        studentsList={studentData}
-        onDelete={deleteStudent}
-      />
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="AddStudent" component={AddStudentScreen} />
+        <Stack.Screen name="StudentsList" component={StudentsListScreen} />
+      </Stack.Navigator>
       <StatusBar style="auto" />
-    </View>
+    </NavigationContainer>
   );
 }
 
