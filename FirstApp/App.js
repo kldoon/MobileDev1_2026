@@ -52,7 +52,16 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="About" component={AboutScreen}
+          options={{
+            title: "About App",
+            headerStyle: {
+              backgroundColor: '#aa7744'
+            },
+            headerLeft: null,
+            headerRight: () => (<Button title='Hi' />),
+            animation: 'scale_from_center'
+          }} />
         <Stack.Screen name="AddStudent" component={AddStudentScreen} />
         <Stack.Screen name="StudentsList" component={StudentsListScreen} />
       </Stack.Navigator>

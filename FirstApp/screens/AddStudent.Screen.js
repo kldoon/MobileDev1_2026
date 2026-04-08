@@ -1,7 +1,9 @@
-import { Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Button, Text, View } from "react-native";
 
 const AddStudentScreen = () => {
-    return(
+    const nav = useNavigation();
+    return (
         <View>
             <Text>
                 Add Student
@@ -9,6 +11,10 @@ const AddStudentScreen = () => {
             <Text>
                 Add new student
             </Text>
+            <View style={{ flexDirection: 'row', gap: 10 }}>
+                <Button title="About App" onPress={() => { nav.navigate("About") }} />
+                <Button title="Students List" onPress={() => { nav.navigate("StudentsList") }} />
+            </View>
         </View>
     )
 }
