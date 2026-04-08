@@ -30,22 +30,11 @@ export default function App() {
     }]
   );
 
-  const [showForm, setShowForm] = useState(false);
-
   const deleteStudent = (studentId) => {
     console.log("Delete student called!!", studentId);
     const newStudentList = studentData.filter((item) => item.id !== studentId);
     setStudentData(newStudentList);
 
-    // const newStudentList = [];
-    // for (let i = 0; i < studentData.length; i++) {
-    //   if (studentData.id === studentId) {
-    //     //delete this\
-    //     continue;
-    //   } else {
-    //     newStudentList.push(studentData[i]);
-    //   }
-    // }
   }
 
   return (
@@ -62,25 +51,17 @@ export default function App() {
             headerRight: () => (<Button title='Hi' />),
             animation: 'scale_from_center'
           }} />
-        <Stack.Screen name="AddStudent" component={AddStudentScreen} />
+        <Stack.Screen
+          name="AddStudent"
+          children={() => (
+            <AddStudentScreen
+              studentData={studentData}
+              setStudentData={setStudentData} />
+          )}
+        />
         <Stack.Screen name="StudentsList" component={StudentsListScreen} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#6633cc',
-    marginBottom: 20
-  }
-});
