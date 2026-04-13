@@ -8,6 +8,7 @@ import HomeScreen from './screens/Home.Screen';
 import AboutScreen from './screens/AboutApp.Screen';
 import AddStudentScreen from './screens/AddStudent.Screen';
 import StudentsListScreen from './screens/StudentsList.Screen';
+import StudentDetails from './screens/StudentDetails.Screen';
 
 const Stack = createStackNavigator();
 
@@ -65,6 +66,7 @@ export default function App() {
             />
           }}
         />
+        <Stack.Screen name="StudentDetails" component={StudentDetails} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

@@ -1,8 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { View, Text, StyleSheet, Button, Image, Pressable } from 'react-native';
 
 const StudentCard = (props) => {
   const [abs, setAbs] = useState(0);
+  const nav = useNavigation();
 
   const addAtt = () => {
     setAbs(abs + 1);
@@ -38,6 +40,15 @@ const StudentCard = (props) => {
           <Button title="  -  " onPress={removeAtt} />
           <Button title="  0  " onPress={zeroAtt} />
         </View>
+        <Pressable
+          onPress={() => nav.navigate("StudentDetails", {
+            studentId: props.studentId,
+            studentName: props.studentName,
+            mark: props.mark,
+            image: props.image
+          })}>
+          <Text>➡️</Text>
+        </Pressable>
       </View>
       <View style={styles.right}>
         <Image
