@@ -1,8 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
-import Divider from './components/Divider';
-import AddStudentForm from './components/AddStudentForm';
-import StudentsList from './components/StudentsList';
+import { Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { useState } from 'react';
@@ -27,14 +24,13 @@ export default function App() {
       name: "Sarah Jameel",
       mark: 87,
       image: 'https://static.vecteezy.com/system/resources/previews/055/056/329/non_2x/3d-icon-avatar-cartoon-woman-holding-a-mockup-phone-with-blank-white-screen-png.png'
-    }]
+    }
+  ]
   );
 
   const deleteStudent = (studentId) => {
-    console.log("Delete student called!!", studentId);
     const newStudentList = studentData.filter((item) => item.id !== studentId);
     setStudentData(newStudentList);
-
   }
 
   return (
@@ -56,10 +52,19 @@ export default function App() {
           children={() => (
             <AddStudentScreen
               studentData={studentData}
-              setStudentData={setStudentData} />
+              setStudentData={setStudentData}
+            />
           )}
         />
-        <Stack.Screen name="StudentsList" component={StudentsListScreen} />
+        <Stack.Screen
+          name="StudentsList"
+          children={() => {
+            return <StudentsListScreen
+              studentData={studentData}
+              deleteStudent={deleteStudent}
+            />
+          }}
+        />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

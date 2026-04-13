@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { StyleSheet, TextInput, View, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const AddStudentForm = (props) => {
   const [stdName, setStdName] = useState();
   const [stdId, setStdId] = useState();
   const [stdImage, setStdImage] = useState('');
+  const nav = useNavigation();
 
   const handleIdChange = (value) => {
     setStdId(parseInt(value));
@@ -29,6 +31,7 @@ const AddStudentForm = (props) => {
       <View style={{ flexDirection: 'row', columnGap: 15 }}>
         <Button title="Clear" onPress={clear} color="#7d7d7d" />
         <Button title="Submit" onPress={handleSubmit} />
+        <Button title="Students List" onPress={() => nav.navigate("StudentsList")} />
       </View>
     </View>
   )

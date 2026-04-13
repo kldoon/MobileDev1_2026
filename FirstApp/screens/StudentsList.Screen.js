@@ -1,25 +1,15 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import StudentsList from "../components/StudentsList";
 
-const StudentsListScreen = () => {
-    return(
-        <View>
-            <Text>
-                Students List
-            </Text>
-            <Text>
-                Student 1
-            </Text>
-            <Text>
-                Student 2
-            </Text>
-            <Text>
-                Student 3
-            </Text>
-            <Text>
-                Student 4
-            </Text>
-        </View>
-    )
+const StudentsListScreen = (props) => {
+  return (
+    <View style={{ height: "100%", paddingVertical: 5 }}>
+      <StudentsList
+        studentsList={props.studentData}
+        onDelete={props.deleteStudent}
+      />
+    </View>
+  )
 }
 
 export default StudentsListScreen;
