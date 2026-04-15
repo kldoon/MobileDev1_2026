@@ -1,10 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Image, Pressable } from 'react-native';
 
 const StudentCard = (props) => {
   const [abs, setAbs] = useState(0);
   const nav = useNavigation();
+  console.log("Hi, without useEffect");
+
+  useEffect(() => {
+    console.log("Hi, with useEffect");
+  }, []);
 
   const addAtt = () => {
     setAbs(abs + 1);
