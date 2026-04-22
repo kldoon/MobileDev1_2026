@@ -1,28 +1,28 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Text, TextInput, Pressable } from 'react-native'
+import { View, StyleSheet, Text, TextInput, Pressable, ScrollView, Button } from 'react-native'
+import AddTask from '../components/AddTask.component';
 
-const HomeScreen = () => {
-  const [task, setTask] = useState('');
-  
-  const addTask = () => {
-
-  }
+const HomeScreen = (props) => {
 
   return (
     <View style={styles.container}>
       <Text>
         Home Screen
       </Text>
-      <View>
-        <TextInput
-          placeholder='Add Your Task'
-          onChangeText={v => setTask(v)}
-          value={task}
-        />
-        <Pressable style={{ backgroundColor: 'green', borderRadius: 20, padding: 8, alignItems: 'center' }} onPress={addTask}>
-          <Text>ADD</Text>
-        </Pressable>
-      </View>
+      <AddTask onAdd={props.addTask} />
+      <ScrollView>
+        {
+          props.taskList.map(task => (
+            <View key={task.id}>
+              <Text>{task.id}</Text>
+              <Text>{task.title}</Text>
+              <Text>{task.date.toDateString()}</Text>
+              <Text>{task.completed.toString()}</Text>
+              <Pressable onPress={() => { props.onToggle(task.id) }}><Text>✅</Text></Pressable>
+            </View>
+          ))
+        }
+      </ScrollView>
     </View>
   )
 }
