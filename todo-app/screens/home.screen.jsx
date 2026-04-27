@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Text, TextInput, Pressable, ScrollView, Button } from 'react-native'
 import AddTask from '../components/AddTask.component';
+import TaskItem from '../components/TaskItem.component';
 
 const HomeScreen = (props) => {
 
@@ -13,13 +14,11 @@ const HomeScreen = (props) => {
       <ScrollView>
         {
           props.taskList.map(task => (
-            <View key={task.id}>
-              <Text>{task.id}</Text>
-              <Text>{task.title}</Text>
-              <Text>{task.date.toDateString()}</Text>
-              <Text>{task.completed.toString()}</Text>
-              <Pressable onPress={() => { props.onToggle(task.id) }}><Text>✅</Text></Pressable>
-            </View>
+            <TaskItem 
+            key={task.id}
+             task={task} 
+             onToggle={props.onToggle}
+             />
           ))
         }
       </ScrollView>

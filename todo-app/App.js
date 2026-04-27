@@ -25,6 +25,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen
           name="home"
           // component={HomeScreen}
@@ -36,7 +37,6 @@ export default function App() {
             />
           )}
         />
-        <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="details" component={DetailScreen} />
       </Stack.Navigator>
       <StatusBar style="auto" />
