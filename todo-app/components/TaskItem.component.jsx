@@ -6,37 +6,7 @@ import {
   Animated,
   StyleSheet,
 } from 'react-native';
-
-// ── THEME ─────────────────────────────────────────────────────────────────────
-const G = {
-  bg:         '#0a0e1a',
-  panel:      '#0f1628',
-  border:     '#1a2744',
-  cyan:       '#00f5ff',
-  green:      '#00ff88',
-  red:        '#ff3c5f',
-  yellow:     '#ffd700',
-  textDim:    '#4a6080',
-  textBody:   '#8ab0d0',
-  textBright: '#cce8ff',
-  font:       'monospace',
-};
-
-// ── HELPERS ───────────────────────────────────────────────────────────────────
-
-/** Formats date as "MON DD · HH:MM" */
-const formatDate = (date) => {
-  const d = date instanceof Date ? date : new Date(date);
-  const days  = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
-  const day   = days[d.getDay()];
-  const dd    = String(d.getDate()).padStart(2, '0');
-  const hh    = String(d.getHours()).padStart(2, '0');
-  const mm    = String(d.getMinutes()).padStart(2, '0');
-  return `${day} ${dd} · ${hh}:${mm}`;
-};
-
-/** Short numeric ID badge from task.id */
-const shortId = (id) => `#${String(id).slice(-4)}`;
+import { COLORS, FONT_FAMILY, CORNER_SIZE, formatDate, shortId, styles as sharedStyles } from '../theme';
 
 // ── COMPONENT ─────────────────────────────────────────────────────────────────
 const TaskItem = ({ task, onToggle, onDelete, index = 0 }) => {
@@ -95,8 +65,8 @@ const TaskItem = ({ task, onToggle, onDelete, index = 0 }) => {
   const rowOpacity = done ? 0.55 : 1;
 
   // Dynamic colors based on completion
-  const accentColor  = done ? G.green  : G.cyan;
-  const borderColor  = done ? G.green  : G.border;
+  const accentColor  = done ? COLORS.green  : COLORS.cyan;
+  const borderColor  = done ? COLORS.green  : COLORS.border;
 
   return (
     <Animated.View
@@ -113,10 +83,10 @@ const TaskItem = ({ task, onToggle, onDelete, index = 0 }) => {
       ]}
     >
       {/* Corner accents */}
-      <View style={[styles.corner, styles.cornerTL, { borderColor: accentColor }]} />
-      <View style={[styles.corner, styles.cornerTR, { borderColor: accentColor }]} />
-      <View style={[styles.corner, styles.cornerBL, { borderColor: accentColor }]} />
-      <View style={[styles.corner, styles.cornerBR, { borderColor: accentColor }]} />
+      <View style={[sharedStyles.corner, sharedStyles.cornerTL, { borderColor: accentColor }]} />
+      <View style={[sharedStyles.corner, sharedStyles.cornerTR, { borderColor: accentColor }]} />
+      <View style={[sharedStyles.corner, sharedStyles.cornerBL, { borderColor: accentColor }]} />
+      <View style={[sharedStyles.corner, sharedStyles.cornerBR, { borderColor: accentColor }]} />
 
       {/* ── Left accent bar ── */}
       <View style={[styles.accentBar, { backgroundColor: accentColor }]} />
@@ -172,9 +142,9 @@ const TaskItem = ({ task, onToggle, onDelete, index = 0 }) => {
           ]}
         >
           {done ? (
-            <Text style={[styles.toggleIcon, { color: G.green }]}>✓</Text>
+            <Text style={[styles.toggleIcon, { color: COLORS.green }]}>✓</Text>
           ) : (
-            <Text style={[styles.toggleIcon, { color: G.textDim }]}>○</Text>
+            <Text style={[styles.toggleIcon, { color: COLORS.textDim }]}>○</Text>
           )}
         </Animated.View>
       </TouchableOpacity>
@@ -190,12 +160,12 @@ const TaskItem = ({ task, onToggle, onDelete, index = 0 }) => {
           style={[
             styles.deleteBtn,
             {
-              borderColor: G.red,
+              borderColor: COLORS.red,
               transform: [{ scale: deleteScale }],
             },
           ]}
         >
-          <Text style={[styles.deleteIcon, { color: G.red }]}>⨯</Text>
+          <Text style={[styles.deleteIcon, { color: COLORS.red }]}>⨯</Text>
         </Animated.View>
       </TouchableOpacity>
 
@@ -205,14 +175,12 @@ const TaskItem = ({ task, onToggle, onDelete, index = 0 }) => {
 
 export default TaskItem;
 
-// ── STYLES ────────────────────────────────────────────────────────────────────
-const CORNER = 10;
-
+// ── COMPONENT STYLES ──────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: G.panel,
+    backgroundColor: COLORS.panel,
     borderWidth: 1,
     borderRadius: 4,
     marginBottom: 10,
@@ -244,28 +212,28 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   idBadge: {
-    fontFamily: G.font,
+    fontFamily: FONT_FAMILY,
     fontSize: 10,
     letterSpacing: 1,
     fontWeight: '700',
   },
   date: {
-    fontFamily: G.font,
+    fontFamily: FONT_FAMILY,
     fontSize: 10,
     letterSpacing: 1,
-    color: G.textDim,
+    color: COLORS.textDim,
   },
 
   // Title
   title: {
-    fontFamily: G.font,
+    fontFamily: FONT_FAMILY,
     fontSize: 14,
     fontWeight: '700',
     letterSpacing: 1,
-    color: G.textBright,
+    color: COLORS.textBright,
   },
   titleDone: {
-    color: G.textDim,
+    color: COLORS.textDim,
     textDecorationLine: 'line-through',
   },
 
@@ -287,7 +255,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   statusText: {
-    fontFamily: G.font,
+    fontFamily: FONT_FAMILY,
     fontSize: 9,
     letterSpacing: 2,
     fontWeight: '700',
@@ -323,16 +291,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
   },
-
-  // Corner accents
-  corner: {
-    position: 'absolute',
-    width: CORNER,
-    height: CORNER,
-    zIndex: 1,
-  },
-  cornerTL: { top: -1,    left: -1,   borderTopWidth: 2,    borderLeftWidth: 2,   borderTopLeftRadius: 4 },
-  cornerTR: { top: -1,    right: -1,  borderTopWidth: 2,    borderRightWidth: 2,  borderTopRightRadius: 4 },
-  cornerBL: { bottom: -1, left: -1,   borderBottomWidth: 2, borderLeftWidth: 2,   borderBottomLeftRadius: 4 },
-  cornerBR: { bottom: -1, right: -1,  borderBottomWidth: 2, borderRightWidth: 2,  borderBottomRightRadius: 4 },
 });

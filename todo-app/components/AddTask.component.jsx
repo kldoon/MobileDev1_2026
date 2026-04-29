@@ -7,21 +7,7 @@ import {
   Animated,
   StyleSheet,
 } from 'react-native';
-
-// ── THEME (import from HomeScreen in your real project) ───────────────────────
-const G = {
-  bg:         '#0a0e1a',
-  panel:      '#0f1628',
-  border:     '#1a2744',
-  cyan:       '#00f5ff',
-  green:      '#00ff88',
-  red:        '#ff3c5f',
-  yellow:     '#ffd700',
-  textDim:    '#4a6080',
-  textBody:   '#8ab0d0',
-  textBright: '#cce8ff',
-  font:       'monospace',
-};
+import { COLORS, FONT_FAMILY, CORNER_SIZE, styles as sharedStyles } from '../theme';
 
 const AddTask = (props) => {
   const [task, setTask] = useState('');
@@ -59,34 +45,34 @@ const AddTask = (props) => {
 
   // Border color reacts to focus + readiness
   const borderColor = focused
-    ? isReady ? G.green : G.cyan
-    : G.border;
+    ? isReady ? COLORS.green : COLORS.cyan
+    : COLORS.border;
 
   // Animated border glow interpolation
   const glowColor = flash.interpolate({
     inputRange:  [0, 1],
-    outputRange: [G.panel, '#0a2a1a'],
+    outputRange: [COLORS.panel, '#0a2a1a'],
   });
 
   return (
     <Animated.View style={[styles.wrapper, { backgroundColor: glowColor }]}>
 
       {/* Corner accents — color matches readiness */}
-      <View style={[styles.corner, styles.cornerTL, { borderColor }]} />
-      <View style={[styles.corner, styles.cornerTR, { borderColor }]} />
-      <View style={[styles.corner, styles.cornerBL, { borderColor }]} />
-      <View style={[styles.corner, styles.cornerBR, { borderColor }]} />
+      <View style={[sharedStyles.corner, sharedStyles.cornerTL, { borderColor }]} />
+      <View style={[sharedStyles.corner, sharedStyles.cornerTR, { borderColor }]} />
+      <View style={[sharedStyles.corner, sharedStyles.cornerBL, { borderColor }]} />
+      <View style={[sharedStyles.corner, sharedStyles.cornerBR, { borderColor }]} />
 
       {/* ── Input row ── */}
       <View style={[styles.inputRow, { borderColor }]}>
 
         {/* Prompt glyph */}
-        <Text style={[styles.prompt, { color: isReady ? G.green : G.textDim }]}>▸</Text>
+        <Text style={[styles.prompt, { color: isReady ? COLORS.green : COLORS.textDim }]}>▸</Text>
 
         <TextInput
           style={styles.input}
           placeholder="NEW QUEST TITLE..."
-          placeholderTextColor={G.textDim}
+          placeholderTextColor={COLORS.textDim}
           value={task}
           onChangeText={setTask}
           onFocus={() => setFocused(true)}
@@ -97,7 +83,7 @@ const AddTask = (props) => {
         />
 
         {/* Character count */}
-        <Text style={[styles.charCount, { color: isReady ? G.green : G.textDim }]}>
+        <Text style={[styles.charCount, { color: isReady ? COLORS.green : COLORS.textDim }]}>
           {task.length}
         </Text>
       </View>
@@ -114,20 +100,20 @@ const AddTask = (props) => {
           style={[
             styles.btn,
             {
-              borderColor: isReady ? G.green : G.border,
+              borderColor: isReady ? COLORS.green : COLORS.border,
               transform: [{ scale }],
               opacity: isReady ? 1 : 0.35,
             },
           ]}
         >
           {/* Corner accents on button */}
-          <View style={[styles.corner, styles.cornerTL, { borderColor: isReady ? G.green : G.border }]} />
-          <View style={[styles.corner, styles.cornerTR, { borderColor: isReady ? G.green : G.border }]} />
-          <View style={[styles.corner, styles.cornerBL, { borderColor: isReady ? G.green : G.border }]} />
-          <View style={[styles.corner, styles.cornerBR, { borderColor: isReady ? G.green : G.border }]} />
+          <View style={[sharedStyles.corner, sharedStyles.cornerTL, { borderColor: isReady ? COLORS.green : COLORS.border }]} />
+          <View style={[sharedStyles.corner, sharedStyles.cornerTR, { borderColor: isReady ? COLORS.green : COLORS.border }]} />
+          <View style={[sharedStyles.corner, sharedStyles.cornerBL, { borderColor: isReady ? COLORS.green : COLORS.border }]} />
+          <View style={[sharedStyles.corner, sharedStyles.cornerBR, { borderColor: isReady ? COLORS.green : COLORS.border }]} />
 
-          <Text style={[styles.btnIcon, { color: isReady ? G.green : G.textDim }]}>＋</Text>
-          <Text style={[styles.btnText, { color: isReady ? G.green : G.textDim }]}>
+          <Text style={[styles.btnIcon, { color: isReady ? COLORS.green : COLORS.textDim }]}>＋</Text>
+          <Text style={[styles.btnText, { color: isReady ? COLORS.green : COLORS.textDim }]}>
             ADD QUEST
           </Text>
         </Animated.View>
@@ -139,15 +125,13 @@ const AddTask = (props) => {
 
 export default AddTask;
 
-// ── STYLES ────────────────────────────────────────────────────────────────────
-const CORNER = 10;
-
+// ── COMPONENT STYLES ──────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
-    backgroundColor: G.panel,
+    backgroundColor: COLORS.panel,
     borderWidth: 1,
-    borderColor: G.border,
+    borderColor: COLORS.border,
     borderRadius: 4,
     padding: 16,
     marginBottom: 16,
@@ -162,23 +146,23 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: 10,
     paddingVertical: 6,
-    backgroundColor: G.bg,
+    backgroundColor: COLORS.bg,
     gap: 8,
   },
   prompt: {
-    fontFamily: G.font,
+    fontFamily: FONT_FAMILY,
     fontSize: 16,
   },
   input: {
     flex: 1,
-    fontFamily: G.font,
+    fontFamily: FONT_FAMILY,
     fontSize: 13,
-    color: G.textBright,
+    color: COLORS.textBright,
     letterSpacing: 1,
     paddingVertical: 6,
   },
   charCount: {
-    fontFamily: G.font,
+    fontFamily: FONT_FAMILY,
     fontSize: 11,
     letterSpacing: 1,
     minWidth: 20,
@@ -197,25 +181,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   btnIcon: {
-    fontFamily: G.font,
+    fontFamily: FONT_FAMILY,
     fontSize: 16,
     fontWeight: '700',
   },
   btnText: {
-    fontFamily: G.font,
+    fontFamily: FONT_FAMILY,
     fontSize: 12,
     fontWeight: '700',
     letterSpacing: 3,
   },
-
-  // Corner accents
-  corner: {
-    position: 'absolute',
-    width: CORNER,
-    height: CORNER,
-  },
-  cornerTL: { top: -1,    left: -1,   borderTopWidth: 2,    borderLeftWidth: 2,   borderTopLeftRadius: 4 },
-  cornerTR: { top: -1,    right: -1,  borderTopWidth: 2,    borderRightWidth: 2,  borderTopRightRadius: 4 },
-  cornerBL: { bottom: -1, left: -1,   borderBottomWidth: 2, borderLeftWidth: 2,   borderBottomLeftRadius: 4 },
-  cornerBR: { bottom: -1, right: -1,  borderBottomWidth: 2, borderRightWidth: 2,  borderBottomRightRadius: 4 },
 });
