@@ -11,17 +11,17 @@ import TaskItem from '../components/TaskItem.component';
 
 // ── THEME (same tokens as LoginScreen) ───────────────────────────────────────
 const G = {
-  bg:         '#0a0e1a',
-  panel:      '#0f1628',
-  border:     '#1a2744',
-  cyan:       '#00f5ff',
-  green:      '#00ff88',
-  red:        '#ff3c5f',
-  yellow:     '#ffd700',
-  textDim:    '#4a6080',
-  textBody:   '#8ab0d0',
+  bg: '#0a0e1a',
+  panel: '#0f1628',
+  border: '#1a2744',
+  cyan: '#00f5ff',
+  green: '#00ff88',
+  red: '#ff3c5f',
+  yellow: '#ffd700',
+  textDim: '#4a6080',
+  textBody: '#8ab0d0',
   textBright: '#cce8ff',
-  font:       'monospace',
+  font: 'monospace',
 };
 
 export { G }; // 👈 other components can import this
@@ -83,7 +83,7 @@ const EmptyState = () => (
 // ── SCREEN ────────────────────────────────────────────────────────────────────
 const HomeScreen = (props) => {
   const total = props.taskList?.length ?? 0;
-  const done  = props.taskList?.filter(t => t.completed).length ?? 0;
+  const done = props.taskList?.filter(t => t.completed).length ?? 0;
 
   return (
     <View style={styles.container}>
@@ -113,13 +113,14 @@ const HomeScreen = (props) => {
         {total === 0
           ? <EmptyState />
           : props.taskList.map((task, index) => (
-              <TaskItem
-                key={task.id}
-                task={task}
-                onToggle={props.onToggle}
-                index={index}
-              />
-            ))
+            <TaskItem
+              key={task.id}
+              task={task}
+              onToggle={props.onToggle}
+              onDelete={props.onDelete}
+              index={index}
+            />
+          ))
         }
       </ScrollView>
 

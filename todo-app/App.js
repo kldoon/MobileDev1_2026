@@ -22,9 +22,14 @@ export default function App() {
     setTaskList(newList);   // set new state
   }
 
+  const deleteTask = (id) => {
+    const newList = taskList.filter((task) => task.id !== id);
+    setTaskList(newList);
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen
           name="home"
@@ -34,6 +39,7 @@ export default function App() {
               addTask={addTask}
               taskList={taskList}
               onToggle={toggleTask}
+              onDelete={deleteTask}
             />
           )}
         />

@@ -39,7 +39,7 @@ const formatDate = (date) => {
 const shortId = (id) => `#${String(id).slice(-4)}`;
 
 // ── COMPONENT ─────────────────────────────────────────────────────────────────
-const TaskItem = ({ task, onToggle, index = 0 }) => {
+const TaskItem = ({ task, onToggle, onDelete, index = 0 }) => {
   const done = task.completed;
 
   // ── Entrance animation (staggered by index)
@@ -67,6 +67,30 @@ const TaskItem = ({ task, onToggle, index = 0 }) => {
   const pressIn  = () => Animated.spring(btnScale, { toValue: 0.8,  useNativeDriver: true }).start();
   const pressOut = () => Animated.spring(btnScale, { toValue: 1,    useNativeDriver: true }).start();
 
+  // ── Delete button animation
+  const deleteScale = useRef(new Animated.Value(1)).current;
+  const deleteIn  = () => Animated.spring(deleteScale, { toValue: 0.8,  useNativeDriver: true }).start();
+  const deleteOut = () => Animated.spring(deleteScale, { toValue: 1,    useNativeDriver: true }).start();
+
+  // ── Deletion animation (slide out + fade)
+  const deleteAnim = useRef(new Animated.Value(0)).current;
+  const handleDelete = () => {
+    Animated.parallel([
+      Animated.timing(deleteAnim, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      onDelete(task.id);
+    });
+  };
+
   // ── Completion: row fades slightly when done
   const rowOpacity = done ? 0.55 : 1;
 
@@ -81,7 +105,10 @@ const TaskItem = ({ task, onToggle, index = 0 }) => {
         {
           borderColor,
           opacity: Animated.multiply(opacity, rowOpacity),
-          transform: [{ translateX: slideX }],
+          transform: [
+            { translateX: slideX },
+            { translateX: Animated.multiply(deleteAnim, 500) }
+          ],
         },
       ]}
     >
@@ -149,6 +176,26 @@ const TaskItem = ({ task, onToggle, index = 0 }) => {
           ) : (
             <Text style={[styles.toggleIcon, { color: G.textDim }]}>○</Text>
           )}
+        </Animated.View>
+      </TouchableOpacity>
+
+      {/* ── Delete Button ── */}
+      <TouchableOpacity
+        onPress={handleDelete}
+        onPressIn={deleteIn}
+        onPressOut={deleteOut}
+        activeOpacity={1}
+      >
+        <Animated.View
+          style={[
+            styles.deleteBtn,
+            {
+              borderColor: G.red,
+              transform: [{ scale: deleteScale }],
+            },
+          ]}
+        >
+          <Text style={[styles.deleteIcon, { color: G.red }]}>⨯</Text>
         </Animated.View>
       </TouchableOpacity>
 
@@ -257,6 +304,22 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
   toggleIcon: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
+
+  // Delete button
+  deleteBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: 3,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 14,
+    backgroundColor: 'transparent',
+  },
+  deleteIcon: {
     fontSize: 18,
     fontWeight: '700',
   },
