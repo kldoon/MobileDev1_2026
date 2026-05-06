@@ -2,10 +2,14 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Image, ImageBackground, StyleSheet, Text, View, Button, ScrollView } from "react-native";
 import Divider from "../components/Divider";
+import DateTimePicker, { DateType, useDefaultStyles } from 'react-native-ui-datepicker';
+import { HourglassMediumIcon, UserGearIcon } from "phosphor-react-native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [products, setProducts] = useState([]);
+  const defaultStyles = useDefaultStyles();
+  const [selected, setSelected] = useState();
 
   useEffect(() => {
     // fetch({ method: 'GET', url: 'https://fakestoreapi.com/products'})
@@ -29,6 +33,8 @@ const HomeScreen = () => {
           style={{ width: 90, height: 90, marginTop: 30 }}
           borderRadius={50}
         />
+        <UserGearIcon size={60} color="#d12e2e" weight="bold" />
+        <HourglassMediumIcon size={60} color="green" />
         <Text style={styles.title}>Student Registration App</Text>
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <Button
@@ -38,6 +44,12 @@ const HomeScreen = () => {
           <Button title="Students List" onPress={() => { navigation.navigate("StudentsList") }} />
           <Button title="About App" onPress={() => { navigation.navigate("About") }} />
         </View>
+        <DateTimePicker
+          mode="single"
+          date={selected}
+          onChange={({ date }) => setSelected(date)}
+          styles={defaultStyles}
+        />
         <ScrollView>
           {
             products.map(prod => <View>
